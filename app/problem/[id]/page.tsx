@@ -3,17 +3,21 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { useProblem } from "@/modules/problems/hooks/use-problem";
 import { Spinner } from "@/components/ui/spinner";
+import { ProblemsHeader } from "@/modules/problems/components/problems-header";
 import { ProblemHeader } from "@/modules/problems/components/problem-header";
 import { ProblemDescription } from "@/modules/problems/components/problem-description";
 import { ProblemTabs } from "@/modules/problems/components/problem-tabs";
-import CodeEditorPanel from "@/modules/problems/components/code-editor-panel";
 import { useEditor } from "@/modules/problems/hooks/use-editor";
+import CodeEditorPanel from "@/modules/problems/components/code-editor-panel";
 import TestCasesPanel from "@/modules/problems/components/testcases-panel";
+import { ExecutionResults } from "@/modules/problems/components/execution-results";
+import { useSubmissionHistory } from "@/modules/problems/hooks/use-submission-history";
 
 const ProblemIdPage = () => {
   const params = useParams<{ id: string }>();
 
   const { problem, isLoading } = useProblem(params.id);
+  const { submissionHistory } = useSubmissionHistory(params.id);
   const {
     selectedLanguage,
     setSelectedLanguage,
@@ -45,7 +49,10 @@ const ProblemIdPage = () => {
               problem={problem}
               selectedLanguage={"JAVASCRIPT"}
             />
-            <ProblemTabs problem={problem} />
+            <ProblemTabs
+              problem={problem}
+              submissionHistory={submissionHistory}
+            />
           </div>
 
           {/* RIGHT PANEL */}
@@ -63,6 +70,8 @@ const ProblemIdPage = () => {
 
             {/* @ts-ignore */}
             <TestCasesPanel testCases={problem.testCases} />
+
+            <ExecutionResults executionResponse={executionResponse} />
           </div>
         </div>
       </div>

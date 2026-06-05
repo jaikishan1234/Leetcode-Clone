@@ -3,9 +3,9 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Trophy, FileText, Lightbulb } from 'lucide-react';
+import { SubmissionHistory } from './submit-history';
 
-
-export const ProblemTabs = ({problem }:any) => {
+export const ProblemTabs = ({problem , submissionHistory}:any) => {
   return (
      <Card>
       <CardContent className="p-3">
@@ -27,7 +27,7 @@ export const ProblemTabs = ({problem }:any) => {
 
           <TabsContent value="submissions" className="p-6">
            <div className="text-center py-8 text-muted-foreground">
-              Submit history
+              <SubmissionHistory submissions={submissionHistory}/>
             </div>
           </TabsContent>
 
