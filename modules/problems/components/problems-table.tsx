@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Table,
@@ -15,24 +15,23 @@ import { usePagination } from "../hooks/use-pagination";
 import { ProblemRow } from "./problem-row";
 import { ProblemsEmpty } from "./problem-empty";
 import { ProblemsPagination } from "./problems-pagination";
-// import CreatePlaylistModal from "@/modules/playlists/components/create-playlist";
-// import { usePlaylistActions } from "@/modules/playlists/hooks/use-playlist-action";
-// import AddToPlaylistModal from "@/modules/playlists/components/add-to-playlist";
+import CreatePlaylistModal from "@/modules/playlists/components/create-playlist";
+import { usePlaylistActions } from "@/modules/playlists/hooks/use-playlist-action";
+import AddToPlaylistModal from "@/modules/playlists/components/add-to-playlist";
 
-const ProblemsTable = ({problems=[] , user}:any) => {
-
+const ProblemsTable = ({ problems = [], user }: any) => {
   const filters = useProblemFilters(problems);
   const pagination = usePagination(filters.filteredProblems);
-
+  const playlist = usePlaylistActions();
 
   console.log("Filtered Problems:", filters.filteredProblems);
   console.log("Current Page Problems:", pagination.paginatedItems);
 
   return (
     <div className="w-full max-w-7xl mx-auto space-y-8 p-6">
-      <ProblemsHeader onCreatePlaylist={() => {}}/>
+      <ProblemsHeader onCreatePlaylist={playlist.openCreateModal} />
 
-        <ProblemsFilters
+      <ProblemsFilters
         search={filters.search}
         onSearchChange={filters.setSearch}
         difficulty={filters.difficulty}
@@ -40,12 +39,11 @@ const ProblemsTable = ({problems=[] , user}:any) => {
         selectedTag={filters.selectedTag}
         onTagChange={filters.setSelectedTag}
         allTags={filters.allTags}
-        
-        />
+      />
 
-        <Card>
-          <CardContent>
-             <Table>
+      <Card>
+        <CardContent>
+          <Table>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-25">Solved</TableHead>
@@ -62,8 +60,8 @@ const ProblemsTable = ({problems=[] , user}:any) => {
                     key={problem.id}
                     problem={problem}
                     user={user}
-                    onDelete={()=>{}}
-                    onSave={() => {}}
+                    onDelete={() => {}}
+                    onSave={playlist.openAddToPlaylist}
                   />
                 ))
               ) : (
@@ -71,38 +69,36 @@ const ProblemsTable = ({problems=[] , user}:any) => {
               )}
             </TableBody>
           </Table>
-          </CardContent>
-        </Card>
+        </CardContent>
+      </Card>
 
-        {/* Pagination */}
-        {pagination.showPagination && (
-            <ProblemsPagination
-            currentPage={pagination.currentPage}
-            totalPages={pagination.totalPages}
-            displayRange={pagination.displayRange}
-            canGoPrevious={pagination.canGoPrevious}
-            canGoNext={pagination.canGoNext}
-            onPrevious={pagination.goToPreviousPage}
-            onNext={pagination.goToNextPage}
-            />
-        )}
-{/* 
-        <CreatePlaylistModal
+      {/* Pagination */}
+      {pagination.showPagination && (
+        <ProblemsPagination
+          currentPage={pagination.currentPage}
+          totalPages={pagination.totalPages}
+          displayRange={pagination.displayRange}
+          canGoPrevious={pagination.canGoPrevious}
+          canGoNext={pagination.canGoNext}
+          onPrevious={pagination.goToPreviousPage}
+          onNext={pagination.goToNextPage}
+        />
+      )}
+
+      <CreatePlaylistModal
         isOpen={playlist.isCreateModalOpen}
         onClose={playlist.closeCreateModal}
         onSubmit={playlist.handleCreatePlaylist}
-        />
+      />
 
-        <AddToPlaylistModal
+      <AddToPlaylistModal
         isOpen={playlist.isAddToPlaylistModalOpen}
         onClose={playlist.closeAddToPlaylistModal}
         onSubmit={playlist.handleAddToPlaylist}
         problemId={playlist.selectedProblemId}
-        
-        /> */}
-
+      />
     </div>
-  )
-}
+  );
+};
 
-export default ProblemsTable
+export default ProblemsTable;
