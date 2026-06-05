@@ -73,6 +73,12 @@ export const getCurrentUserData = async()=>{
      where:{
       clerkId:user.id
      },
+     include:{
+      submissions:true,
+      solvedProblems:true,
+      playlists:true
+     }
+     
     });
 
     return data;
