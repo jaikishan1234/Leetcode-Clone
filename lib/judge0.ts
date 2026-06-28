@@ -28,8 +28,8 @@ export async function submitBatch(submissions: any) {
       base64_encoded: "false",
     },
     headers: {
-      "x-rapidapi-key": "62000bded8msh797b06efe3466c1p1087d4jsn988a1acf2d8a",
-      "x-rapidapi-host": "judge029.p.rapidapi.com",
+      "x-rapidapi-key": "7f4e147801msh9af1900386b06e8p1ac61bjsne475226484c9",
+      "x-rapidapi-host": "judge0-extra-ce1.p.rapidapi.com",
       "Content-Type": "application/json",
     },
     data: {
@@ -53,8 +53,8 @@ export async function pollBatchResults(tokens: string[]) {
         fields: "*",
       },
       headers: {
-        "x-rapidapi-key": "62000bded8msh797b06efe3466c1p1087d4jsn988a1acf2d8a",
-        "x-rapidapi-host": "judge029.p.rapidapi.com",
+        "x-rapidapi-key": "7f4e147801msh9af1900386b06e8p1ac61bjsne475226484c9",
+        "x-rapidapi-host": "judge0-extra-ce1.p.rapidapi.com",
         "Content-Type": "application/json",
       },
     };
