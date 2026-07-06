@@ -63,26 +63,28 @@ export const currentUserRole = async()=>{
   }
 }
 
-export const getCurrentUserData = async()=>{
+export const getCurrentUserData = async () => {
   try {
     const user = await currentUser();
-    if(!user){
-      return { success: false, error: "No authenticated user found" };
+
+    if (!user) {
+      return null;
     }
+
     const data = await prisma.user.findUnique({
-     where:{
-      clerkId:user.id
-     },
-     include:{
-      submissions:true,
-      solvedProblems:true,
-      playlists:true
-     }
-     
+      where: {
+        clerkId: user.id,
+      },
+      include: {
+        submissions: true,
+        solvedProblems: true,
+        playlists: true,
+      },
     });
 
     return data;
   } catch (error) {
-    
+    console.log(error);
+    return null;
   }
-}
+};

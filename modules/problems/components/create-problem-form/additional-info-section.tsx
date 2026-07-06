@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
-export function AdditionalInfoSection({ form }) {
+export function AdditionalInfoSection({ form }: { form: any }) {
   const {
     register,
     formState: { errors },
@@ -28,7 +28,13 @@ export function AdditionalInfoSection({ form }) {
   );
 }
 
-function ConstraintsField({ register, error }) {
+function ConstraintsField({
+  register,
+  error,
+}: {
+  register: any;
+  error: any;
+}) {
   return (
     <div>
       <Label className="font-medium">Constraints</Label>
@@ -42,7 +48,7 @@ function ConstraintsField({ register, error }) {
   );
 }
 
-function HintsField({ register }) {
+function HintsField({ register }: { register: any }) {
   return (
     <div>
       <Label className="font-medium">Hints (Optional)</Label>
@@ -55,7 +61,7 @@ function HintsField({ register }) {
   );
 }
 
-function EditorialField({ register }) {
+function EditorialField({ register }: { register: any }) {
   return (
     <div>
       <Label className="font-medium">Editorial (Optional)</Label>

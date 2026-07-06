@@ -6,7 +6,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
-export function TestCasesSection({ form, testCasesArray }) {
+export function TestCasesSection({
+  form,
+  testCasesArray,
+}: {
+  form: any;
+  testCasesArray: any;
+}) {
   const {
     register,
     formState: { errors },
@@ -33,7 +39,7 @@ export function TestCasesSection({ form, testCasesArray }) {
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
-        {fields.map((field, index) => (
+        {fields.map((field: any, index: number) => (
           <TestCaseCard
             key={field.id}
             index={index}
@@ -51,7 +57,19 @@ export function TestCasesSection({ form, testCasesArray }) {
   );
 }
 
-function TestCaseCard({ index, register, errors, onRemove, canRemove }) {
+function TestCaseCard({
+  index,
+  register,
+  errors,
+  onRemove,
+  canRemove,
+}: {
+  index: any;
+  register: any;
+  errors: any;
+  onRemove: any;
+  canRemove: any;
+}) {
   return (
     <Card className="bg-background">
       <CardHeader className="pb-4">

@@ -4,8 +4,18 @@ import { Card, CardContent } from '@/components/ui/card';
 
 
 
-const ProfileStats = ({ submissions, solvedCount, playlistCount }) => {
-  const acceptedSubmissions = submissions.filter(s => s.status === 'Accepted').length;
+const ProfileStats = ({
+  submissions,
+  solvedCount,
+  playlistCount,
+}: {
+  submissions: any[];
+  solvedCount: number;
+  playlistCount: number;
+}) => {
+  const acceptedSubmissions = submissions.filter(
+  (s: any) => s.status === "Accepted"
+).length;
 
   const successRate = submissions.length > 0 ? Math.round((acceptedSubmissions / submissions.length) * 100) : 0;
 
@@ -42,7 +52,7 @@ const ProfileStats = ({ submissions, solvedCount, playlistCount }) => {
 
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      {stats.map((stat, index) => {
+      {stats.map((stat: any, index: number) => {
         const Icon = stat.icon;
         return (
           <Card

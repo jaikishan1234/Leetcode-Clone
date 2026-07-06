@@ -5,7 +5,10 @@ export function usePlaylistActions() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isAddToPlaylistModalOpen, setIsAddToPlaylistModalOpen] =
     useState(false);
-  const [selectedProblemId, setSelectedProblemId] = useState(null);
+
+  const [selectedProblemId, setSelectedProblemId] = useState<string | null>(
+    null
+  );
 
   const handleCreatePlaylist = async (data: any) => {
     try {
@@ -24,17 +27,20 @@ export function usePlaylistActions() {
         setIsCreateModalOpen(false);
         toast.success("Playlist created successfully");
         return true;
-      } else {
-        throw new Error(result.error);
       }
-    } catch (error) {
+
+      throw new Error(result.error);
+    } catch (error: any) {
       console.error("Error creating playlist:", error);
-      toast.error(error.message || "Failed to create playlist");
+      toast.error(error?.message || "Failed to create playlist");
       return false;
     }
   };
 
-  const handleAddToPlaylist = async (problemId: string, playlistId: string) => {
+  const handleAddToPlaylist = async (
+    problemId: string,
+    playlistId: string
+  ) => {
     try {
       const response = await fetch("/api/playlist/add-problem", {
         method: "POST",
@@ -48,17 +54,17 @@ export function usePlaylistActions() {
         setIsAddToPlaylistModalOpen(false);
         toast.success("Problem added to playlist");
         return true;
-      } else {
-        throw new Error(result.error);
       }
-    } catch (error) {
+
+      throw new Error(result.error);
+    } catch (error: any) {
       console.error("Error adding to playlist:", error);
-      toast.error(error.message || "Failed to add problem to playlist");
+      toast.error(error?.message || "Failed to add problem to playlist");
       return false;
     }
   };
 
-  const openAddToPlaylist = (problemId: any) => {
+  const openAddToPlaylist = (problemId: string) => {
     setSelectedProblemId(problemId);
     setIsAddToPlaylistModalOpen(true);
   };
@@ -69,7 +75,6 @@ export function usePlaylistActions() {
     closeCreateModal: () => setIsCreateModalOpen(false),
     handleCreatePlaylist,
 
-    // Add to playlist modal
     isAddToPlaylistModalOpen,
     selectedProblemId,
     openAddToPlaylist,

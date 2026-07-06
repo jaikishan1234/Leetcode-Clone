@@ -10,7 +10,7 @@ import { LANGUAGES } from "../../schema";
 import { CodeEditor } from "./code-editor";
 
 
-export function LanguageSections({ form }) {
+export function LanguageSections({ form }: { form: any }) {
   return (
     <>
       {LANGUAGES.map((language) => (
@@ -20,7 +20,13 @@ export function LanguageSections({ form }) {
   );
 }
 
-function LanguageCard({ language, form }) {
+function LanguageCard({
+  language,
+  form,
+}: {
+  language: any;
+  form: any;
+}) {
   const {
     control,
     register,
@@ -56,7 +62,15 @@ function LanguageCard({ language, form }) {
   );
 }
 
-function StarterCodeEditor({ language, control, error }) {
+function StarterCodeEditor({
+  language,
+  control,
+  error,
+}: {
+  language: any;
+  control: any;
+  error: any;
+}) {
   return (
     <Card>
       <CardHeader>
@@ -82,7 +96,15 @@ function StarterCodeEditor({ language, control, error }) {
   );
 }
 
-function ReferenceSolutionEditor({ language, control, error }) {
+function ReferenceSolutionEditor({
+  language,
+  control,
+  error,
+}: {
+  language: any;
+  control: any;
+  error: any;
+}) {
   return (
     <Card>
       <CardHeader>
@@ -111,7 +133,15 @@ function ReferenceSolutionEditor({ language, control, error }) {
   );
 }
 
-function ExampleFields({ language, register, errors }) {
+function ExampleFields({
+  language,
+  register,
+  errors,
+}: {
+  language: any;
+  register: any;
+  errors: any;
+}) {
   return (
     <Card>
       <CardHeader>

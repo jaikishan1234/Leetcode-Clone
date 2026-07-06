@@ -61,7 +61,13 @@ export function ProblemsFilters({
 /**
  * Search input with icon
  */
-function SearchInput({ value, onChange }) {
+function SearchInput({
+  value,
+  onChange,
+}: {
+  value: any;
+  onChange: any;
+}) {
   return (
     <div className="relative">
       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -78,7 +84,13 @@ function SearchInput({ value, onChange }) {
 /**
  * Difficulty filter dropdown
  */
-function DifficultySelect({ value, onChange }) {
+function DifficultySelect({
+  value,
+  onChange,
+}: {
+  value: any;
+  onChange: any;
+}) {
   return (
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger className="w-[180px]">
@@ -99,7 +111,15 @@ function DifficultySelect({ value, onChange }) {
 /**
  * Tag filter dropdown
  */
-function TagSelect({ value, onChange, tags }) {
+function TagSelect({
+  value,
+  onChange,
+  tags,
+}: {
+  value: any;
+  onChange: any;
+  tags: any[];
+}) {
   return (
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger className="w-[180px]">
@@ -107,7 +127,7 @@ function TagSelect({ value, onChange, tags }) {
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="ALL">All Tags</SelectItem>
-        {tags.map((tag) => (
+        {tags.map((tag: any) => (
           <SelectItem key={tag} value={tag}>
             {tag}
           </SelectItem>

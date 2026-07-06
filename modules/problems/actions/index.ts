@@ -123,6 +123,13 @@ export const executeCode = async (
   try {
     const user = await getCurrentUserData();
 
+    if (!user) {
+      return {
+        success: false,
+        error: "User not found",
+      };
+    }
+
     const { allPassed, detailedResults } = await runCodeAgainstTestCases(
       source_code,
       language_id,
@@ -133,24 +140,28 @@ export const executeCode = async (
     // Save submission to DB
     const submission = await prisma.submission.create({
       data: {
-        userId: user?.id,
+        userId: user.id,
         problemId,
         sourceCode: source_code,
         language: getLanguageName(language_id),
         stdin: stdin.join("\n"),
-        stdout: JSON.stringify(detailedResults.map((r) => r.stdout)),
-        stderr: detailedResults.some((r) => r.stderr)
-          ? JSON.stringify(detailedResults.map((r) => r.stderr))
+        stdout: JSON.stringify(detailedResults.map((r: any) => r.stdout)),
+        stderr: detailedResults.some((r: any) => r.stderr)
+          ? JSON.stringify(detailedResults.map((r: any) => r.stderr))
           : null,
-        compileOutput: detailedResults.some((r) => r.compile_output)
-          ? JSON.stringify(detailedResults.map((r) => r.compile_output))
+
+        compileOutput: detailedResults.some((r: any) => r.compile_output)
+          ? JSON.stringify(detailedResults.map((r: any) => r.compile_output))
           : null,
+
         status: allPassed ? "Accepted" : "Wrong Answer",
-        memory: detailedResults.some((r) => r.memory)
-          ? JSON.stringify(detailedResults.map((r) => r.memory))
+
+        memory: detailedResults.some((r: any) => r.memory)
+          ? JSON.stringify(detailedResults.map((r: any) => r.memory))
           : null,
-        time: detailedResults.some((r) => r.time)
-          ? JSON.stringify(detailedResults.map((r) => r.time))
+
+        time: detailedResults.some((r: any) => r.time)
+          ? JSON.stringify(detailedResults.map((r: any) => r.time))
           : null,
       },
     });
@@ -158,15 +169,15 @@ export const executeCode = async (
     // Mark problem as solved if all passed
     if (allPassed) {
       await prisma.problemSolved.upsert({
-        where: { userId_problemId: { userId: user?.id, problemId } },
+        where: { userId_problemId: { userId: user.id, problemId } },
         update: {},
-        create: { userId: user?.id, problemId },
+        create: { userId: user.id, problemId },
       });
     }
 
     // Save individual test case results
     await prisma.testCaseResult.createMany({
-      data: detailedResults.map((result) => ({
+      data: detailedResults.map((result: any) => ({
         submissionId: submission.id,
         testCase: result.testCase,
         passed: result.passed,
@@ -199,9 +210,23 @@ export const getAllSubmissionByCurrentUserForProblem = async (
 ) => {
   const user = await getCurrentUserData();
 
+  if (!user) {
+    return {
+      success: false,
+      data: [],
+      error: "User not found",
+    };
+  }
+
   const submissions = await prisma.submission.findMany({
-    where: { problemId, userId: user?.id },
+    where: {
+      problemId,
+      userId: user.id,
+    },
   });
 
-  return { success: true, data: submissions };
+  return {
+    success: true,
+    data: submissions,
+  };
 };

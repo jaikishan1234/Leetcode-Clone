@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 import {
@@ -10,53 +10,61 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Plus, Check } from "lucide-react";
+import { Plus } from "lucide-react";
 import { toast } from "sonner";
 
+type Playlist = {
+  id: string;
+  name: string;
+  description?: string | null;
+};
 
-const AddToPlaylistModal = ({isOpen , onClose , onSubmit , problemId}:any)=>{
-     const [playlists, setPlaylists] = useState([]);
+const AddToPlaylistModal = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  problemId,
+}: any) => {
+  const [playlists, setPlaylists] = useState<Playlist[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(()=>{
-    const loadPlaylist = async()=>{
-        try {
-            const response = await fetch("/api/playlist");
-            const data = await response.json();
+  useEffect(() => {
+    const loadPlaylist = async () => {
+      try {
+        const response = await fetch("/api/playlist");
+        const data = await response.json();
 
-            if(data.success){
-                 setPlaylists(data.playlists);
-            }
-            else{
-                throw new Error(data.error)
-            }
-        } catch (error) {
-              console.error('Error loading playlists:', error);
-        toast.error("Failed to load playlists");
+        if (data.success) {
+          setPlaylists(data.playlists);
+        } else {
+          throw new Error(data.error);
         }
+      } catch (error) {
+        console.error("Error loading playlists:", error);
+        toast.error("Failed to load playlists");
+      }
     };
 
-    if(isOpen){
-        loadPlaylist()
+    if (isOpen) {
+      loadPlaylist();
     }
-  },[isOpen])
+  }, [isOpen]);
 
-  const handleAddToPlaylist = async(playlistId:string)=>{
+  const handleAddToPlaylist = async (playlistId: string) => {
     try {
-        setIsLoading(true);
-        await onSubmit(problemId , playlistId)
-        onClose();
+      setIsLoading(true);
+      await onSubmit(problemId, playlistId);
+      onClose();
     } catch (error) {
-         console.error('Error adding to playlist:', error);
+      console.error("Error adding to playlist:", error);
       toast.error("Failed to add problem to playlist");
+    } finally {
+      setIsLoading(false);
     }
-    finally{
-        setIsLoading(false)
-    }
-  }
+  };
 
   return (
-      <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add to Playlist</DialogTitle>
@@ -64,6 +72,7 @@ const AddToPlaylistModal = ({isOpen , onClose , onSubmit , problemId}:any)=>{
             Choose a playlist to add this problem to
           </DialogDescription>
         </DialogHeader>
+
         <ScrollArea className="max-h-[300px] w-full pr-4">
           {playlists.length > 0 ? (
             <div className="space-y-2">
@@ -74,12 +83,14 @@ const AddToPlaylistModal = ({isOpen , onClose , onSubmit , problemId}:any)=>{
                 >
                   <div>
                     <h3 className="font-medium">{playlist.name}</h3>
+
                     {playlist.description && (
                       <p className="text-sm text-muted-foreground">
                         {playlist.description}
                       </p>
                     )}
                   </div>
+
                   <Button
                     size="sm"
                     onClick={() => handleAddToPlaylist(playlist.id)}
@@ -94,12 +105,12 @@ const AddToPlaylistModal = ({isOpen , onClose , onSubmit , problemId}:any)=>{
           ) : (
             <div className="text-center py-4 text-muted-foreground">
               <p>No playlists found. Create one first!</p>
+
               <Button
                 className="mt-2"
                 variant="outline"
                 onClick={() => {
                   onClose();
-                  // You can emit an event or use a callback here to open create playlist modal
                 }}
               >
                 Create Playlist
@@ -109,7 +120,7 @@ const AddToPlaylistModal = ({isOpen , onClose , onSubmit , problemId}:any)=>{
         </ScrollArea>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
-export default AddToPlaylistModal
+export default AddToPlaylistModal;

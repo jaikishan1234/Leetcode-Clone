@@ -7,7 +7,11 @@ import UserInfoCard from '@/modules/profile/components/user-info-card'
 import React from 'react'
 
 const ProfilePage = async() => {
-    const profileData = await getCurrentUserData()
+    const profileData = await getCurrentUserData();
+
+if (!profileData) {
+  return <div>Profile not found</div>;
+}
 
   return (
     <div className='min-h-screen py-32'>
@@ -15,16 +19,15 @@ const ProfilePage = async() => {
             <UserInfoCard userData={profileData}/>
 
             <ProfileStats
-              submissions={profileData?.submissions}
-          solvedCount={profileData?.solvedProblems.length}
-          playlistCount={profileData?.playlists.length}
-            
-            />
+  submissions={profileData.submissions}
+  solvedCount={profileData.solvedProblems.length}
+  playlistCount={profileData.playlists.length}
+/>
 
-            <SubmissionHistory submissions={profileData.submissions}/>
+            <SubmissionHistory submissions={profileData.submissions} />
 
             <div className='grid gap-8'>
-            <SolvedProblems solvedProblems={profileData.solvedProblems}/>
+            <SolvedProblems solvedProblems={profileData.solvedProblems} />
               <PlaylistsSection playlists={profileData.playlists} />
             </div>
         </div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllSubmissionByCurrentUserForProblem } from "../actions";
 
 export function useSubmissionHistory(id:string){
-     const [submissionHistory, setSubmissionHistory] = useState([]);
+     const [submissionHistory, setSubmissionHistory] = useState<any[]>([]);
 
 
      useEffect(()=>{

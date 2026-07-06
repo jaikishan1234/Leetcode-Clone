@@ -1,18 +1,28 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock, CpuIcon, Code, CheckCircle2, XCircle } from "lucide-react";
 
-export const SubmissionDetails = ({ submission }:any) => {
+export const SubmissionDetails = ({ submission }: any) => {
   const isSuccess = submission.status === "Accepted";
-  const averageMemory = submission.memory ? 
-    JSON.parse(submission.memory).reduce((a, b) => parseFloat(a) + parseFloat(b), 0) / 
-    JSON.parse(submission.memory).length : 0;
-    
-  const averageTime = submission.time ? 
-    JSON.parse(submission.time)
-      .map(t => parseFloat(t.replace(" s", "")))
-      .reduce((a, b) => a + b, 0) / 
-    JSON.parse(submission.time).length : 0;
+  const averageMemory = submission.memory
+    ? JSON.parse(submission.memory).reduce(
+        (a: number, b: string) => a + parseFloat(b),
+        0,
+      ) / JSON.parse(submission.memory).length
+    : 0;
+
+  const averageTime = submission.time
+    ? JSON.parse(submission.time)
+        .map((t: string) => parseFloat(t.replace(" s", "")))
+        .reduce((a: number, b: number) => a + b, 0) /
+      JSON.parse(submission.time).length
+    : 0;
 
   return (
     <Card className="w-full">
@@ -41,21 +51,27 @@ export const SubmissionDetails = ({ submission }:any) => {
             <Code className="h-4 w-4 text-muted-foreground" />
             <div>
               <p className="text-sm font-medium">Language</p>
-              <p className="text-sm text-muted-foreground">{submission.language}</p>
+              <p className="text-sm text-muted-foreground">
+                {submission.language}
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <CpuIcon className="h-4 w-4 text-muted-foreground" />
             <div>
               <p className="text-sm font-medium">Memory (avg)</p>
-              <p className="text-sm text-muted-foreground">{averageMemory.toFixed(2)} KB</p>
+              <p className="text-sm text-muted-foreground">
+                {averageMemory.toFixed(2)} KB
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <Clock className="h-4 w-4 text-muted-foreground" />
             <div>
               <p className="text-sm font-medium">Time (avg)</p>
-              <p className="text-sm text-muted-foreground">{averageTime.toFixed(3)} s</p>
+              <p className="text-sm text-muted-foreground">
+                {averageTime.toFixed(3)} s
+              </p>
             </div>
           </div>
         </div>

@@ -4,8 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 
-const SolvedProblems = ({ solvedProblems }) => {
-  const formatDate = (dateString) => {
+const SolvedProblems = ({
+  solvedProblems,
+}: {
+  solvedProblems: any[];
+}) => {
+  const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -38,7 +42,7 @@ const SolvedProblems = ({ solvedProblems }) => {
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {solvedProblems.map((problem) => (
+          {solvedProblems.map((problem: any) => (
             <Card
               key={problem.id}
               className="hover:shadow-md transition-all duration-200 bg-green-50 dark:bg-green-950/50"

@@ -11,7 +11,17 @@ import { getDifficultyColor } from "../constant";
 /**
  * Single row in the problems table
  */
-export function ProblemRow({ problem, user, onDelete, onSave }) {
+export function ProblemRow({
+  problem,
+  user,
+  onDelete,
+  onSave,
+}: {
+  problem: any;
+  user: any;
+  onDelete: any;
+  onSave: any;
+}) {
   const isSolved = problem.solvedBy?.length > 0;
 
   return (
@@ -52,7 +62,7 @@ export function ProblemRow({ problem, user, onDelete, onSave }) {
 /**
  * Checkbox showing if problem is solved
  */
-function SolvedCheckbox({ checked }) {
+function SolvedCheckbox({ checked }: { checked: boolean }) {
   return (
     <Checkbox
       checked={checked}
@@ -65,7 +75,13 @@ function SolvedCheckbox({ checked }) {
 /**
  * Problem title with link to problem page
  */
-function ProblemTitle({ id, title }) {
+function ProblemTitle({
+  id,
+  title,
+}: {
+  id: string;
+  title: string;
+}) {
   return (
     <Link
       href={`/problem/${id}`}
@@ -79,10 +95,10 @@ function ProblemTitle({ id, title }) {
 /**
  * List of tag badges
  */
-function TagsList({ tags = [] }) {
+function TagsList({ tags = [] }: { tags?: any[] }) {
   return (
     <div className="flex flex-wrap gap-1">
-      {tags.map((tag, idx) => (
+      {tags.map((tag: any, idx: number) => (
         <Badge
           key={idx}
           variant="outline"
@@ -98,7 +114,11 @@ function TagsList({ tags = [] }) {
 /**
  * Difficulty badge with color
  */
-function DifficultyBadge({ difficulty }) {
+function DifficultyBadge({
+  difficulty,
+}: {
+  difficulty: any;
+}) {
   return (
     <Badge className={`${getDifficultyColor(difficulty)} border-0 font-medium`}>
       {difficulty}
@@ -109,7 +129,17 @@ function DifficultyBadge({ difficulty }) {
 /**
  * Action buttons (delete, edit, save to playlist)
  */
-function ActionButtons({ problemId, isAdmin, onDelete, onSave }) {
+function ActionButtons({
+  problemId,
+  isAdmin,
+  onDelete,
+  onSave,
+}: {
+  problemId: any;
+  isAdmin: boolean;
+  onDelete: any;
+  onSave: any;
+}) {
   return (
     <div className="flex items-center gap-2">
       {isAdmin && (

@@ -5,8 +5,8 @@ import { Badge } from '@/components/ui/badge';
 
 
 
-const PlaylistsSection = ({ playlists }) => {
-  const formatDate = (dateString) => {
+const PlaylistsSection = ({ playlists }: { playlists: any[] }) => {
+  const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -37,7 +37,7 @@ const PlaylistsSection = ({ playlists }) => {
         </div>
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {playlists.map((playlist) => (
+          {playlists.map((playlist: any) => (
             <Card
               key={playlist.id}
               className="hover:shadow-md transition-all duration-200 bg-blue-50 dark:bg-blue-950/50 group"

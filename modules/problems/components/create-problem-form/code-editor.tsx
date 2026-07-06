@@ -7,7 +7,15 @@ const LANGUAGE_MAP = {
   java: "java",
 };
 
-export function CodeEditor({ value, onChange, language = "javascript" }: any) {
+export function CodeEditor({
+  value,
+  onChange,
+  language = "javascript",
+}: {
+  value: any;
+  onChange: any;
+  language?: keyof typeof LANGUAGE_MAP;
+}) {
   return (
     <div className="border rounded-md bg-slate-950 text-slate-50">
       <div className="px-4 py-2 bg-slate-800 border-b text-sm font-mono">

@@ -6,8 +6,12 @@ import { Badge } from '@/components/ui/badge';
 
 
 
-const UserInfoCard = ({ userData }) => {
-  const formatDate = (dateString) => {
+const UserInfoCard = ({
+  userData,
+}: {
+  userData: any;
+}) => {
+  const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',

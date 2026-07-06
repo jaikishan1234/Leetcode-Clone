@@ -49,7 +49,12 @@ export function useCreateProblem() {
       }
     } catch (error) {
       console.error("Error creating problem:", error);
-      toast.error(error.message || "Failed to create problem");
+
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Failed to create problem");
+      }
     } finally {
       setIsLoading(false);
     }

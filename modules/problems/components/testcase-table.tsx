@@ -18,7 +18,7 @@ export const TestCaseTable = ({ testCases }:any) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {testCases.map((testCase, index) => (
+          {testCases.map((testCase: any, index: number) => (
             <TableRow key={testCase.id}>
               <TableCell className="font-medium">Test {index + 1}</TableCell>
               <TableCell>
